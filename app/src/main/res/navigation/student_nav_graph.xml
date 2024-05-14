@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_nav_graph"
+    app:startDestination="@id/studentHomeFragment">
+
+    <fragment
+        android:id="@+id/studentHomeFragment"
+        android:name="com.kartik.tutordashboard.Student.StudentHomeFragment"
+        android:label="StudentHomeFragment"
+        tools:layout="@layout/activity_student_home"/>
+    <fragment
+        android:id="@+id/studentTestFragment"
+        android:name="com.kartik.tutordashboard.Student.StudentTestFragment"
+        android:label="StudentTestFragment"
+        tools:layout="@layout/fragment_student_test"/>
+    <fragment
+        android:id="@+id/studentProfileFragment"
+        android:name="com.kartik.tutordashboard.Student.ProfileFragment"
+        android:label="StudentProfileFragment"
+        tools:layout="@layout/fragment_student_profile"/>
+    <fragment
+        android:id="@+id/studentTestListFragment"
+        android:name="com.kartik.tutordashboard.Student.TestListStudent"
+        android:label="TstListStudents"
+        tools:layout="@layout/fragment_test_list_student"/>
+    <fragment
+        android:id="@+id/attemptTestFragment"
+        android:name="com.kartik.tutordashboard.Student.AttemptTestFragment"
+        android:label="AttemptTest"
+        tools:layout="@layout/fragment_attempt_test">
+        <argument
+            android:name="testId"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/pendingTestsList"
+        android:name="com.kartik.tutordashboard.Student.PendingTestsFragment"
+        android:label="PendingTestsFragment"
+        tools:layout="@layout/fragment_pending_tests"/>
+
+    <fragment
+        android:id="@+id/attemptedTestsList"
+        android:name="com.kartik.tutordashboard.Student.AttemptedTestsFragment"
+        android:label="AttemptedTestsFragment"
+        tools:layout="@layout/fragment_attempted_tests"/>
+
+
+    <fragment
+        android:id="@+id/attemptedTestsFragment"
+        android:name="com.kartik.tutordashboard.Student.AttemptedTestsFragment"
+        android:label="AttemptedTestsFragment"
+        tools:layout="@layout/fragment_attempted_tests"/>
+    <fragment
+        android:id="@+id/viewMarksFragment"
+        android:name="com.kartik.tutordashboard.Student.ViewMarksFragment"
+        android:label="ViewMarksFragment"
+        tools:layout="@layout/fragment_view_marks">
+        <argument
+            android:name="testId"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/groupDetailsFragment"
+        android:name="com.kartik.tutordashboard.Student.GroupDetailsFragment"
+        android:label="GroupDetailsFragment"
+        tools:layout="@layout/fragment_group_details">
+        <argument
+            android:name="groupId"
+            app:argType="string"/>
+    </fragment>
+
+    <action
+        android:id="@+id/actionPendingTestFragmentToAttemptTestFragment"
+        app:destination="@+id/attemptTestFragment"/>
+    <action
+        android:id="@+id/actionstudentHomeFragmentToAttemptTestFragment"
+        app:destination="@id/attemptTestFragment"/>
+    <action
+        android:id="@+id/actionStudentHomeFragmentToViewMarksFragment"
+        app:destination="@+id/viewMarksFragment"/>
+    <action android:id="@+id/actionAttemptedTestsFragmentToAttemptedTestFragment"
+        app:destination="@+id/viewMarksFragment"/>
+    <action
+        android:id="@+id/actionStudentHomeFragmentToGroupDetailsFragment"
+        app:destination="@+id/groupDetailsFragment"/>
+
+</navigation>

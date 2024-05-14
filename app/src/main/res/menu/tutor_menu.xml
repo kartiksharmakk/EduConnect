@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/st_home"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/createGroup"
+        android:title="Create Group"
+        android:icon="@drawable/create_group"/>
+
+    <item
+        android:id="@+id/createTest"
+        android:title="Create Test"
+        android:icon="@drawable/test"/>
+
+    <item
+        android:id="@+id/t_profile"
+        android:title="Profile"
+        android:icon="@drawable/profile"/>
+</menu>

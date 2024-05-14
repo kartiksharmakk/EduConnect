@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/signInFragment"
+    android:id="@+id/auth_nav_graph">
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.kartik.tutordashboard.Authentication.SignIn.SigninFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_signin"/>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.kartik.tutordashboard.Authentication.SignUp.SignupFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_signup"/>
+    <fragment
+        android:id="@+id/verifyPhoneFragment"
+        android:name="com.kartik.tutordashboard.Authentication.SignUp.VerifyPhoneFragment"
+        android:label="VerifyPhoneFragment"
+        tools:layout="@layout/fragment_verify_phone"/>
+    <fragment
+        android:id="@+id/resetFragment"
+        android:name="com.kartik.tutordashboard.Authentication.SignIn.ResestFragment"
+        android:label="ResetFragment"
+        tools:layout="@layout/fragment_resest"/>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.kartik.tutordashboard.Authentication.SignIn.ForgotFragment"
+        android:label="ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot"/>
+    <action
+        android:id="@+id/action_verifyPhoneFragment_to_signInFragment"
+        app:destination="@id/signInFragment"
+        app:popUpTo="@id/signupFragment"
+        app:popUpToInclusive="true"/>
+    <action
+        android:id="@+id/actionSignupFragmentToVerifyPhoneFragment"
+        app:destination="@id/verifyPhoneFragment" />
+</navigation>
