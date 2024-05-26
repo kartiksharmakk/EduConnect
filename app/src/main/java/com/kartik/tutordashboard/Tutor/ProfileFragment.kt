@@ -69,8 +69,9 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         firebaseDatabase = Firebase.database
         databaseReference = firebaseDatabase.getReference("User Details")
-        val uid = Prefs.getUID(requireContext())
-        val qrCodeBitmap = generateQRCode(uid!!)
+        //val uid = Prefs.getUID(requireContext())
+        val uid = auth.uid
+        val qrCodeBitmap = generateQRCode(uid.toString())
         getAboutSection()
         binding.apply {
             bottomSheetLayout.clBottomSheet.visibility = View.GONE

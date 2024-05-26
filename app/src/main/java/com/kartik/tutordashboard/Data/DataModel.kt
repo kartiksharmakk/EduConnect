@@ -76,4 +76,10 @@ object DataModel{
         val marks: Int = 0
     )
 
+    data class Announcement(
+        val title: String = "",
+        val description: String = "",
+        val url: String = ""
+    )
+
 }

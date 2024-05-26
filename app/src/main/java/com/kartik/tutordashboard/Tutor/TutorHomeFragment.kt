@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
+import com.kartik.tutordashboard.R
 
 class TutorHomeFragment : Fragment() {
     lateinit var binding: FragmentTutorHomeBinding
@@ -57,6 +58,13 @@ class TutorHomeFragment : Fragment() {
         fetchGroups()
         fetchTests()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.imgNotificationTutorHome.setOnClickListener {
+            findNavController().navigate(R.id.announcementFragment)
+        }
     }
     private fun fetchGroups(){
         val uid = Prefs.getUID(requireContext())

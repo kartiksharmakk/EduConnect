@@ -2,16 +2,11 @@ package com.kartik.tutordashboard.Student
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kartik.tutordashboard.Adapter.StudentGroupAdapter
-import com.kartik.tutordashboard.Adapter.StudentTestAdapter
-import com.kartik.tutordashboard.Data.DataModel
-import com.kartik.tutordashboard.Data.Prefs
-import com.kartik.tutordashboard.databinding.FragmentStudentHomeBinding
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,6 +14,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
+import com.kartik.tutordashboard.Adapter.StudentGroupAdapter
+import com.kartik.tutordashboard.Adapter.StudentTestAdapter
+import com.kartik.tutordashboard.Data.DataModel
+import com.kartik.tutordashboard.Data.Prefs
+import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.databinding.FragmentStudentHomeBinding
 
 class StudentHomeFragment : Fragment() {
     lateinit var binding: FragmentStudentHomeBinding
@@ -64,6 +65,14 @@ class StudentHomeFragment : Fragment() {
         fetchGroups()
         fetchTests()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.ivNotification.setOnClickListener {
+            findNavController().navigate(R.id.announcementFragmentStudent)
+        }
     }
 
     private fun fetchGroups(){

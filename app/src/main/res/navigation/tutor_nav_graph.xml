@@ -64,5 +64,10 @@
         android:id="@+id/actionTutorHomeFragmentToViewGroupDetailsFragment"
         app:destination="@id/viewGroupDetailsFragment"
         />
+    <fragment
+        android:id="@+id/announcementFragment"
+        android:name="com.kartik.tutordashboard.Tutor.AnnouncementFragment"
+        tools:layout="@layout/fragment_announcement_teacher"
+        android:label="NotificationFragment" />
 
 </navigation>

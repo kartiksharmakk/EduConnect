@@ -38,13 +38,31 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
+    }
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
     }
 }
 
 dependencies {
+
+    var composeBom = platform("androidx.compose:compose-bom:2024.01.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation ("androidx.compose.runtime:runtime")
+    implementation ("androidx.compose.ui:ui")
+    implementation ("androidx.compose.foundation:foundation")
+    implementation ("androidx.compose.foundation:foundation-layout")
+    implementation ("androidx.compose.material:material")
+    implementation ("androidx.compose.runtime:runtime-livedata")
+    implementation ("androidx.compose.ui:ui-tooling")
+
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -66,6 +84,9 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.0")
     implementation("com.github.Kwasow:BottomNavigationCircles-Android:1.2")
 
@@ -82,4 +103,6 @@ dependencies {
    // implementation("com.github.quickpermissions:quickpermissions-kotlin:0.4.0")
     implementation("com.journeyapps:zxing-android-embedded:4.2.0")
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 }

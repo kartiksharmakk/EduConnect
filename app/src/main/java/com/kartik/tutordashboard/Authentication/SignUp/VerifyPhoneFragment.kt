@@ -1,6 +1,7 @@
 package com.kartik.tutordashboard.Authentication.SignUp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.database
+import com.google.firebase.messaging.FirebaseMessaging
 
 class VerifyPhoneFragment : Fragment() {
     lateinit var binding: FragmentVerifyPhoneBinding
@@ -95,7 +97,7 @@ class VerifyPhoneFragment : Fragment() {
         }
     }
     fun retrieveVerificationId(){
-        storedVerificationId = Prefs.getVerificationId(requireContext())!!
+        storedVerificationId = Prefs.getVerificationId(requireContext()).toString()
     }
 
     fun verifyPhoneWithOtp(verificationId: String, code: String){
@@ -130,7 +132,7 @@ class VerifyPhoneFragment : Fragment() {
         val uid = "tr" + databaseReference.push().key!!
         val email1 = encodeEmail(email)
         val phoneWithCountryCode = countryCode + phoneNumber
-        val image = "gs://tutorapp-c7511.appspot.com/Default_Resources/default_user_profile_image.png"
+        val image = "gs://tutordashboard-26c6a.appspot.com/Default_Resources/default_user_profile_image.png"
         val user = DataModel.UserCredentials(uid,name,email1, countryCode, phoneWithCountryCode, image,false )
         val tutor = DataModel.TeacherModel(uid, name, email1,"0", "0" )
         databaseReference.child(email1).setValue(user)
@@ -142,7 +144,7 @@ class VerifyPhoneFragment : Fragment() {
         val uid = "st" + studentDatabaseReference.push().key!!
         val email1 = encodeEmail(email)
         val phoneWithCountryCode = countryCode + phoneNumber
-        val image = "gs://tutorapp-c7511.appspot.com/Default_Resources/default_user_profile_image.png"
+        val image = "gs://tutordashboard-26c6a.appspot.com/Default_Resources/default_user_profile_image.png"
         val user = DataModel.UserCredentials(uid, name, email1, countryCode, phoneWithCountryCode, image, false)
         val student = DataModel.Students(uid, name, email1, countryCode, phoneWithCountryCode, image)
         databaseReference.child(email1).setValue(user)
