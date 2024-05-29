@@ -80,6 +80,7 @@ class AnnouncementFragmentStudent: Fragment() {
 
         LazyColumn(
             modifier = Modifier.fillMaxSize()
+                .padding(top = 32.dp)
         ) {
             items(announcementList) { announcement ->
                 AnnouncementCard(
