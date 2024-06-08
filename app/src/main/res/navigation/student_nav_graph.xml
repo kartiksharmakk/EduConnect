@@ -8,22 +8,22 @@
     <fragment
         android:id="@+id/studentHomeFragment"
         android:name="com.kartik.tutordashboard.Student.StudentHomeFragment"
-        android:label="StudentHomeFragment"
+        android:label="My Classes"
         tools:layout="@layout/activity_student_home"/>
     <fragment
         android:id="@+id/studentTestFragment"
         android:name="com.kartik.tutordashboard.Student.StudentTestFragment"
-        android:label="StudentTestFragment"
+        android:label="Tests"
         tools:layout="@layout/fragment_student_test"/>
     <fragment
         android:id="@+id/studentProfileFragment"
         android:name="com.kartik.tutordashboard.Student.ProfileFragment"
-        android:label="StudentProfileFragment"
+        android:label="Account"
         tools:layout="@layout/fragment_student_profile"/>
     <fragment
         android:id="@+id/studentTestListFragment"
         android:name="com.kartik.tutordashboard.Student.TestListStudent"
-        android:label="TstListStudents"
+        android:label="Tests"
         tools:layout="@layout/fragment_test_list_student"/>
     <fragment
         android:id="@+id/attemptTestFragment"
@@ -92,6 +92,49 @@
         android:name="com.kartik.tutordashboard.Student.AnnouncementFragmentStudent"
         tools:layout="@layout/fragment_announcement_student"
         android:label="NotificationFragment" />
+
+    <fragment
+        android:id="@+id/nav_gpa_calculator"
+        android:name="com.kartik.tutordashboard.Student.gpacalculator.CourseListFragment"
+        android:label="GPA Calculator"
+        tools:layout="@layout/fragment_gpa_calculator_course_list" >
+        <action
+            android:id="@+id/action_nav_gpa_calculator_to_addCourseFragment"
+            app:destination="@id/addCourseFragment" />
+        <action
+            android:id="@+id/action_courseListFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseDetailFragment"
+        android:name="com.kartik.tutordashboard.Student.gpacalculator.CourseDetailFragment"
+        android:label="Course Detail"
+        tools:layout="@layout/fragment_gpa_calculator_course_detail" >
+        <argument
+            android:name="course_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_courseDetailFragment_to_addCourseFragment"
+            app:destination="@id/addCourseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCourseFragment"
+        android:name="com.kartik.tutordashboard.Student.gpacalculator.AddCourseFragment"
+        android:label="Add New Course"
+        tools:layout="@layout/fragment_gpa_calculator_add_course" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="course_id"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addCourseFragment_to_courseListFragment"
+            app:destination="@id/nav_gpa_calculator"
+            app:popUpTo="@id/nav_gpa_calculator"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 
 </navigation>

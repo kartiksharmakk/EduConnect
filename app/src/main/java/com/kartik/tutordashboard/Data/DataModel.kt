@@ -82,4 +82,6 @@ object DataModel{
         val url: String = ""
     )
 
+
+
 }

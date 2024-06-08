@@ -1,33 +1,60 @@
 package com.kartik.tutordashboard.Student
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.github.kwasow.bottomnavigationcircles.BottomNavigationCircles
+import com.google.android.material.navigation.NavigationView
 import com.kartik.tutordashboard.R
 import com.kartik.tutordashboard.databinding.ActivityStudentHomeBinding
+
 
 class StudentHome : AppCompatActivity() {
     lateinit var binding: ActivityStudentHomeBinding
     lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStudentHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navController = findNavController(R.id.nav_student_host_fragment)
-        binding.studentBottomNav.setOnNavigationItemSelectedListener {
+        navController = findNavController(com.kartik.tutordashboard.R.id.main_nav_host) //Initialising navController
+
+        appBarConfiguration = AppBarConfiguration.Builder(
+            com.kartik.tutordashboard.R.id.studentHomeFragment, com.kartik.tutordashboard.R.id.studentProfileFragment,
+        ) //Pass the ids of fragments from nav_graph which you d'ont want to show back button in toolbar
+            .setOpenableLayout(binding.mainDrawerLayout) //Pass the drawer layout id from activity xml
+            .build()
+
+        setSupportActionBar(binding.mainToolbar) //Set toolbar
+
+        setupActionBarWithNavController(navController, appBarConfiguration) //Setup toolbar with back button and drawer icon according to appBarConfiguration
+
+
+        val bottomNavBar = findViewById<BottomNavigationCircles>(com.kartik.tutordashboard.R.id.main_bottom_navigation_view)
+        bottomNavBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.st_home1->{
-                    navController.navigate(R.id.studentHomeFragment)
+                com.kartik.tutordashboard.R.id.studentHomeFragment->{
+                    navController.navigate(com.kartik.tutordashboard.R.id.studentHomeFragment)
                     true
                 }
-                R.id.st_test->{
-                    navController.navigate(R.id.studentTestListFragment)
+                com.kartik.tutordashboard.R.id.studentTestListFragment->{
+                    navController.navigate(com.kartik.tutordashboard.R.id.studentTestListFragment)
                     true
                 }
-                R.id.st_profile->{
-                    navController.navigate(R.id.studentProfileFragment)
+                com.kartik.tutordashboard.R.id.studentProfileFragment->{
+                    navController.navigate(com.kartik.tutordashboard.R.id.studentProfileFragment)
                     true
                 }
                 else->{
@@ -35,9 +62,83 @@ class StudentHome : AppCompatActivity() {
                 }
             }
         }
+
+
+        val DrawerNavBar = findViewById<NavigationView>(com.kartik.tutordashboard.R.id.main_navigation_view)
+
+        DrawerNavBar.setNavigationItemSelectedListener { it: MenuItem ->
+            when (it.itemId) {
+                R.id.nav_gpa_calculator ->{
+                    navController.navigate(R.id.nav_gpa_calculator)
+                    true
+                }
+                else -> {
+                    true
+                }
+            }
+        }
+
+      //  visibilityNavElements(navController) //If you want to hide drawer or bottom navigation configure that in this function
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+    private fun visibilityNavElements(navController: NavController) {
+
+        //Listen for the change in fragment (navigation) and hide or show drawer or bottom navigation accordingly if required
+        //Modify this according to your need
+        //If you want you can implement logic to deselect(styling) the bottom navigation menu item when drawer item selected using listener
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+           //     R.id.profileFragment -> hideBothNavigation()
+       //         R.id.settingsFragment -> hideBottomNavigation()
+                else -> showBothNavigation()
+            }
+        }
+
+    }
+
+    private fun hideBothNavigation() { //Hide both drawer and bottom navigation bar
+        binding.mainBottomNavigationView.visibility = View.GONE
+        binding.mainNavigationView.visibility = View.GONE
+        binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED) //To lock navigation drawer so that it don't respond to swipe gesture
+    }
+
+    private fun hideBottomNavigation() { //Hide bottom navigation
+        binding.mainBottomNavigationView.visibility = View.GONE
+        binding.mainNavigationView.visibility = View.VISIBLE
+        binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED) //To unlock navigation drawer
+
+        binding.mainNavigationView.setupWithNavController(navController) //Setup Drawer navigation with navController
+    }
+
+    private fun showBothNavigation() {
+        binding.mainBottomNavigationView.visibility = View.VISIBLE
+        binding.mainNavigationView.visibility = View.VISIBLE
+        binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        setupNavControl() //To configure navController with drawer and bottom navigation
+    }
+
+    private fun setupNavControl() {
+        binding.mainNavigationView.setupWithNavController(navController) //Setup Drawer navigation with navController
+        binding.mainBottomNavigationView.setupWithNavController(navController) //Setup Bottom navigation with navController
+    }
+
+    fun exitApp() { //To exit the application call this function from fragment
+        this.finishAffinity()
+    }
+
+    override fun onSupportNavigateUp(): Boolean { //Setup appBarConfiguration for back arrow
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+    }
+
+    override fun onBackPressed() {
+        when { //If drawer layout is open close that on back pressed
+            binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START) -> {
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+            else -> {
+                super.onBackPressed() //If drawer is already in closed condition then go back
+            }
+        }
     }
 }

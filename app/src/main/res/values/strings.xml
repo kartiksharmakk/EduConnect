@@ -7,4 +7,29 @@
     <string name="forgotPassword">We will send an OTP to you to reset your password.</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="new_channel_name">notification_channel</string>
+    <string name="default_notification_channel_id">tutordashboard_notification</string>
+
+
+
+    <string name="course_name_req">Course Name <font color='#FF0000'>*</font></string>
+    <string name="delete_question">Are you sure you want to delete?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="add_fragment_title">Add Item</string>
+
+
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="gpa_calculator">GPA Calculator</string>
+    <string name="menu_gpa_calculator">GPA Calculator</string>
+    <string name="menu_todo_list">To-Do List</string>
+    <string name="menu_classes_schedule">Classes Schedule</string>
+    <string name="menu_exam_countdown">Exam Countdown</string>
+    <string name="menu_notes">Notes</string>
+    <string name="menu_pomodoro_timer">Pomodoro Timer</string>
 </resources>

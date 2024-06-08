@@ -12,9 +12,8 @@
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:fontFamily="sans-serif-black"
-        android:text="My Classes"
         android:textSize="28dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,17 +34,9 @@
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/notification"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <ScrollView
         android:layout_width="match_parent"
