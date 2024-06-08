@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kartik.tutordashboard.Data.Course
 import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.TutorDashboardApplication
 import com.kartik.tutordashboard.databinding.FragmentGpaCalculatorCourseDetailBinding
 
 
@@ -26,7 +27,7 @@ class CourseDetailFragment : Fragment() {
 
     private val viewModel: GpaCalculatorViewModel by activityViewModels {
         GpaCalculatorViewModelFactory(
-            (activity?.application as CalculatorApplication).database.courseDao()
+            (activity?.application as TutorDashboardApplication).database.courseDao()
         )
     }
 

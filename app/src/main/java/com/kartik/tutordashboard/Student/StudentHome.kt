@@ -70,6 +70,7 @@ class StudentHome : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_gpa_calculator ->{
                     navController.navigate(R.id.nav_gpa_calculator)
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 else -> {
@@ -97,13 +98,13 @@ class StudentHome : AppCompatActivity() {
 
     }
 
-    private fun hideBothNavigation() { //Hide both drawer and bottom navigation bar
+    fun hideBothNavigation() { //Hide both drawer and bottom navigation bar
         binding.mainBottomNavigationView.visibility = View.GONE
         binding.mainNavigationView.visibility = View.GONE
         binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED) //To lock navigation drawer so that it don't respond to swipe gesture
     }
 
-    private fun hideBottomNavigation() { //Hide bottom navigation
+    fun hideBottomNavigation() { //Hide bottom navigation
         binding.mainBottomNavigationView.visibility = View.GONE
         binding.mainNavigationView.visibility = View.VISIBLE
         binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED) //To unlock navigation drawer
@@ -111,6 +112,14 @@ class StudentHome : AppCompatActivity() {
         binding.mainNavigationView.setupWithNavController(navController) //Setup Drawer navigation with navController
     }
 
+
+    fun showBottomNavigation() { //Hide bottom navigation
+        binding.mainBottomNavigationView.visibility = View.VISIBLE
+        binding.mainNavigationView.visibility = View.GONE
+        binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED) //To unlock navigation drawer
+
+        binding.mainBottomNavigationView.setupWithNavController(navController) //Setup Drawer navigation with navController
+    }
     private fun showBothNavigation() {
         binding.mainBottomNavigationView.visibility = View.VISIBLE
         binding.mainNavigationView.visibility = View.VISIBLE

@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kartik.tutordashboard.Adapter.CourseListAdapter
+import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.Student.StudentHome
+import com.kartik.tutordashboard.TutorDashboardApplication
 import com.kartik.tutordashboard.databinding.FragmentGpaCalculatorCourseListBinding
 
 // Main fragment displaying details for all courses in the database
@@ -17,14 +21,14 @@ class CourseListFragment : Fragment() {
     private var _binding: FragmentGpaCalculatorCourseListBinding? = null
     private val binding get() = _binding!!
 
-    /*
+
     private val viewModel: GpaCalculatorViewModel by activityViewModels {
         GpaCalculatorViewModelFactory(
-            (activity?.application as CalculatorApplication).database.courseDao()
+            (activity?.application as TutorDashboardApplication).database.courseDao()
         )
     }
 
-     */
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +42,10 @@ class CourseListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        /// hide bottom nav here
+        (activity as? StudentHome)?.hideBottomNavigation()
+
         val adapter = CourseListAdapter {
             val action =
                 CourseListFragmentDirections.actionCourseListFragmentToCourseDetailFragment(it.id)
@@ -49,14 +57,13 @@ class CourseListFragment : Fragment() {
 
         // Attach an observer on the allCourses list to update the  UI automatically when
         // the data changes
-      //  viewModel.allCourses.observe(this.viewLifecycleOwner) { courses ->
-     //       courses.let {
-     //           adapter.submitList(it)
-//
+        viewModel.allCourses.observe(this.viewLifecycleOwner) { courses ->
+            courses.let {
+                adapter.submitList(it)
             }
-      //      binding.gpaResult.text = viewModel.calculateGpa().toString()
+            binding.gpaResult.text = viewModel.calculateGpa().toString()
         }
-/*
+
         binding.floatingActionButton.setOnClickListener {
             val action = CourseListFragmentDirections.actionNavGpaCalculatorToAddCourseFragment(
                 getString(R.string.add_fragment_title)
@@ -66,7 +73,7 @@ class CourseListFragment : Fragment() {
 
 
 
- */
-   // }
 
-//}
+    }
+
+}

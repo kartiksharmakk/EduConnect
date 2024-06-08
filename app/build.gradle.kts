@@ -4,8 +4,8 @@ plugins {
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin") version "2.7.7"
     id("com.github.ben-manes.versions") version "0.39.0"
+    id("kotlin-kapt")
 }
-
 
 
 android {
@@ -108,7 +108,9 @@ dependencies {
 
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
 
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt  ("androidx.room:room-compiler:2.6.1")
+// Kotlin Extensions and Coroutines support for Room
+    implementation ("androidx.room:room-ktx:2.6.1")
 }
