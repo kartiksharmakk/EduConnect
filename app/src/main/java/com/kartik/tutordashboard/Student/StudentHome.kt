@@ -75,6 +75,11 @@ class StudentHome : AppCompatActivity() {
                     binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.nav_notes ->{
+                    navController.navigate(R.id.nav_notes)
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 else -> {
                     true
                 }

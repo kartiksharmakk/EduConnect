@@ -4,11 +4,6 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/nav_gpa_calculator"
-            android:icon="@drawable/ic_menu_calculator"
-            android:title="@string/menu_gpa_calculator" />
         <item
             android:id="@+id/nav_notes"
             android:icon="@drawable/ic_menu_note_add"

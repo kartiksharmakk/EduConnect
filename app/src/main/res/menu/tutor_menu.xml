@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/st_home"
+        android:id="@+id/tutorHomeFragment"
         android:title="Home"
         android:icon="@drawable/home"/>
     <item
-        android:id="@+id/createGroup"
+        android:id="@+id/tutorCreateGroupFragment"
         android:title="Create Group"
         android:icon="@drawable/create_group"/>
 
     <item
-        android:id="@+id/createTest"
+        android:id="@+id/tutorCreateTestFragment"
         android:title="Create Test"
         android:icon="@drawable/test"/>
 
     <item
-        android:id="@+id/t_profile"
+        android:id="@+id/tutor_profile"
         android:title="Profile"
         android:icon="@drawable/profile"/>
 </menu>

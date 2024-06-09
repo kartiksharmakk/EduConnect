@@ -61,8 +61,8 @@ dependencies {
     implementation ("androidx.compose.material:material")
     implementation ("androidx.compose.runtime:runtime-livedata")
     implementation ("androidx.compose.ui:ui-tooling")
-
-
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation ("androidx.activity:activity-compose")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
