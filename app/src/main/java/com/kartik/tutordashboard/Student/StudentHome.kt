@@ -3,6 +3,7 @@ package com.kartik.tutordashboard.Student
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.github.kwasow.bottomnavigationcircles.BottomNavigationCircles
 import com.google.android.material.navigation.NavigationView
+import com.kartik.tutordashboard.Data.Prefs
 import com.kartik.tutordashboard.R
 import com.kartik.tutordashboard.databinding.ActivityStudentHomeBinding
 
@@ -79,6 +81,19 @@ class StudentHome : AppCompatActivity() {
             }
         }
 
+        val userName = Prefs.getUsername(this)
+        val email = Prefs.getUSerEmailEncoded(this)
+
+        val navDrawer = DrawerNavBar.getHeaderView(0)
+
+        val userNameDrawer = navDrawer.findViewById<TextView>(R.id.userNameDrawer)
+        userNameDrawer.text = userName
+
+        val userEmailDrawer = navDrawer.findViewById<TextView>(R.id.userEmailDrawer)
+        userEmailDrawer.text = email?.replace("(dot)", ".")
+
+
+
        visibilityNavElements(navController) //If you want to hide drawer or bottom navigation configure that in this function
     }
 
@@ -90,7 +105,7 @@ class StudentHome : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.studentHomeFragment -> showBottomNavigation()
+                R.id.studentHomeFragment -> showBothNavigation()
        //         R.id.settingsFragment -> hideBottomNavigation()
                 else -> showBothNavigation()
             }

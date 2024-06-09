@@ -1,5 +1,6 @@
 package com.kartik.tutordashboard.Student
 
+import android.Manifest
 import android.animation.ValueAnimator
 import android.app.Activity
 import android.app.AlertDialog
@@ -8,13 +9,13 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -23,15 +24,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.kartik.tutordashboard.Authentication.AuthActivity
-import com.kartik.tutordashboard.Data.Prefs
-import com.kartik.tutordashboard.Functions.CommonFunctions
-import com.kartik.tutordashboard.R
-import com.kartik.tutordashboard.Tutor.ProfileFragment
-import com.kartik.tutordashboard.databinding.FragmentStudentProfileBinding
 import com.facebook.shimmer.Shimmer
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -46,6 +43,12 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import com.kartik.tutordashboard.Authentication.AuthActivity
+import com.kartik.tutordashboard.Data.Prefs
+import com.kartik.tutordashboard.Functions.CommonFunctions
+import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.Tutor.ProfileFragment
+import com.kartik.tutordashboard.databinding.FragmentStudentProfileBinding
 import com.yalantis.ucrop.UCrop
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -161,10 +164,70 @@ class ProfileFragment : Fragment() {
     }
 
     private fun requestStoragePermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestStoragePermissionsApi34()
+        }
+        else{
         requestPermissions(
             arrayOf(android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED),
             ProfileFragment.STORAGE_PERMISSION_REQUEST_CODE
         )
+        }
+    }
+
+    private val storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        permissions.entries.forEach {
+            val isGranted = it.value
+            if (isGranted) {
+                pickProfilePhoto()
+                // Permission is granted
+                // Handle the granted permission
+            } else {
+                showPermissionDeniedDialog()
+                CommonFunctions.getToastShort(
+                    requireContext(),
+                    "Please provide storage permissions"
+                )
+                // Permission is denied
+                // Handle the denied permission
+            }
+        }
+    }
+
+    private fun requestStoragePermissionsApi34() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permissionsToRequest = mutableListOf<String>()
+
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_MEDIA_IMAGES
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                permissionsToRequest.add(Manifest.permission.READ_MEDIA_IMAGES)
+            }
+
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_MEDIA_VIDEO
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                permissionsToRequest.add(Manifest.permission.READ_MEDIA_VIDEO)
+            }
+
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_MEDIA_AUDIO
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                permissionsToRequest.add(Manifest.permission.READ_MEDIA_AUDIO)
+            }
+
+            if (permissionsToRequest.isNotEmpty()) {
+                storagePermissionLauncher.launch(permissionsToRequest.toTypedArray())
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -223,12 +286,20 @@ class ProfileFragment : Fragment() {
                 val imageUri = dataSnapshot.getValue(String::class.java)
                 imageUri?.let {
                     val img = FirebaseStorage.getInstance().getReferenceFromUrl(imageUri)
-                    img.downloadUrl.addOnSuccessListener { uri ->
-                        Glide.with(requireContext()).load(uri).apply(RequestOptions.circleCropTransform())
-                            .into(binding.imgStudentImageProfile)
-                        stopImageShimmer()
-                    }.addOnFailureListener { exception ->
-                        Log.e("StudentProfileFragment","Error loading profile image: ${exception.message}")
+                    try {
+                        img.downloadUrl.addOnSuccessListener { uri ->
+                            Glide.with(requireContext()).load(uri)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(binding.imgStudentImageProfile)
+                            stopImageShimmer()
+                        }.addOnFailureListener { exception ->
+                            Log.e(
+                                "StudentProfileFragment",
+                                "Error loading profile image: ${exception.message}"
+                            )
+                        }
+                    }catch (e: Exception){
+                        Log.d("Image Loading exception",e.message.toString())
                     }
                 } ?: run {
                     Log.e("StudentProfileFragment","Image URI is null")
