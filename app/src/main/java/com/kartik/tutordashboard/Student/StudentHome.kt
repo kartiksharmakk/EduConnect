@@ -79,7 +79,7 @@ class StudentHome : AppCompatActivity() {
             }
         }
 
-      //  visibilityNavElements(navController) //If you want to hide drawer or bottom navigation configure that in this function
+       visibilityNavElements(navController) //If you want to hide drawer or bottom navigation configure that in this function
     }
 
     private fun visibilityNavElements(navController: NavController) {
@@ -90,7 +90,7 @@ class StudentHome : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-           //     R.id.profileFragment -> hideBothNavigation()
+                R.id.studentHomeFragment -> showBottomNavigation()
        //         R.id.settingsFragment -> hideBottomNavigation()
                 else -> showBothNavigation()
             }
