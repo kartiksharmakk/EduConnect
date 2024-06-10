@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,14 +26,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import coil.compose.rememberAsyncImagePainter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -69,10 +71,7 @@ class AnnouncementFragmentStudent: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val backButton = view.findViewById<ImageView>(R.id.backButton)
-        backButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
+
     }
 
     @Composable
@@ -86,14 +85,17 @@ class AnnouncementFragmentStudent: Fragment() {
                 AnnouncementCard(
                     title = announcement.title,
                     description = announcement.description,
-                    url = announcement.url
+                    url = announcement.url,
+                    image = announcement.image
                 )
             }
         }
     }
 
     @Composable
-    fun AnnouncementCard(title: String, description: String, url: String) {
+    fun AnnouncementCard(title: String, description: String, url: String, image: String?) {
+        val context = LocalContext.current
+
         Card(
             modifier = Modifier
                 .padding(8.dp)
@@ -101,8 +103,8 @@ class AnnouncementFragmentStudent: Fragment() {
                 .clickable {
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        context?.startActivity(intent)
-                    }catch (e:Exception){
+                        context.startActivity(intent)
+                    } catch (e: Exception) {
                         Log.d("AnnouncementClick", "Cannot Handle this type of url")
                     }
                 },
@@ -114,6 +116,18 @@ class AnnouncementFragmentStudent: Fragment() {
                     .background(Color.White)
                     .padding(16.dp)
             ) {
+                if (!image.isNullOrEmpty()) {
+                    Image(
+                        painter = rememberAsyncImagePainter(image),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp)
+                        ,
+                        contentScale = ContentScale.Fit
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
                 Text(
                     text = title,
                     fontSize = 20.sp,

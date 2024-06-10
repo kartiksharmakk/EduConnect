@@ -79,7 +79,8 @@ object DataModel{
     data class Announcement(
         val title: String = "",
         val description: String = "",
-        val url: String = ""
+        val url: String = "",
+        val image: String= ""
     )
 
 

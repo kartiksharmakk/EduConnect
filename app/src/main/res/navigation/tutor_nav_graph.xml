@@ -7,22 +7,22 @@
     <fragment
         android:id="@+id/tutorHomeFragment"
         android:name="com.kartik.tutordashboard.Tutor.TutorHomeFragment"
-        android:label="TutorHomeFragment"
+        android:label="My Classes"
         tools:layout="@layout/fragment_tutor_home"/>
     <fragment
         android:id="@+id/tutorCreateTestFragment"
         android:name="com.kartik.tutordashboard.Tutor.CreateTestFragment"
-        android:label="CreateTestFragment"
+        android:label="Tests"
         tools:layout="@layout/fragment_create_test"/>
     <fragment
         android:id="@+id/tutorCreateGroupFragment"
         android:name="com.kartik.tutordashboard.Tutor.CreateGroupFragment"
-        android:label="CreateGroupFragment"
+        android:label="Groups"
         tools:layout="@layout/fragment_create_group"/>
     <fragment
         android:id="@+id/tutor_profile"
         android:name="com.kartik.tutordashboard.Tutor.ProfileFragment"
-        android:label="TutorProfile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <argument
             android:name="uid"
