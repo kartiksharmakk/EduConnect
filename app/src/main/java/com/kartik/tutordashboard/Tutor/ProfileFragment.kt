@@ -14,7 +14,6 @@ import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -26,14 +25,9 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.kartik.tutordashboard.Authentication.AuthActivity
-import com.kartik.tutordashboard.Data.DataModel
-import com.kartik.tutordashboard.Data.Prefs
-import com.kartik.tutordashboard.Functions.CommonFunctions.getToastShort
-import com.kartik.tutordashboard.R
-import com.kartik.tutordashboard.databinding.FragmentProfileBinding
 import com.facebook.shimmer.Shimmer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.Firebase
@@ -49,6 +43,12 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import com.kartik.tutordashboard.Authentication.AuthActivity
+import com.kartik.tutordashboard.Data.DataModel
+import com.kartik.tutordashboard.Data.Prefs
+import com.kartik.tutordashboard.Functions.CommonFunctions.getToastShort
+import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.databinding.FragmentProfileBinding
 import com.yalantis.ucrop.UCrop
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -389,7 +389,6 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         } )
@@ -510,7 +509,7 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
             }
 
         })
