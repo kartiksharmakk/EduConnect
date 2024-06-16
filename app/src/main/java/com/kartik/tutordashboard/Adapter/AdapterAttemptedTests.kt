@@ -60,7 +60,7 @@ class AdapterAttemptedTests(val context: Context, val tests: List<DataModel.Test
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                   
                 }
 
             })

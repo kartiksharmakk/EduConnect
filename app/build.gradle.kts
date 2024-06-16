@@ -50,6 +50,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.media3:media3-exoplayer:1.3.1")
     var composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -63,6 +64,7 @@ dependencies {
     implementation ("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.material:material-icons-extended")
     implementation ("androidx.activity:activity-compose")
+    implementation("io.coil-kt:coil-compose:2.1.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -113,4 +115,6 @@ dependencies {
     kapt  ("androidx.room:room-compiler:2.6.1")
 // Kotlin Extensions and Coroutines support for Room
     implementation ("androidx.room:room-ktx:2.6.1")
+
+
 }

@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_assignment"
             android:icon="@drawable/ic_notice"
-            android:title="@string/menu_assignment" />
+            android:title="Upload Assignment" />
 
     </group>
 </menu>

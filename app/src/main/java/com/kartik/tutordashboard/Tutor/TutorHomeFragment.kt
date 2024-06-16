@@ -6,11 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kartik.tutordashboard.Adapter.TutorGroupAdapter
-import com.kartik.tutordashboard.Adapter.TutorTestAdapter
-import com.kartik.tutordashboard.Data.DataModel
-import com.kartik.tutordashboard.Data.Prefs
-import com.kartik.tutordashboard.databinding.FragmentTutorHomeBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,7 +14,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
+import com.kartik.tutordashboard.Adapter.TutorGroupAdapter
+import com.kartik.tutordashboard.Adapter.TutorTestAdapter
+import com.kartik.tutordashboard.Data.DataModel
+import com.kartik.tutordashboard.Data.Prefs
 import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.databinding.FragmentTutorHomeBinding
 
 class TutorHomeFragment : Fragment() {
     lateinit var binding: FragmentTutorHomeBinding
@@ -83,7 +83,6 @@ class TutorHomeFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })
@@ -106,7 +105,7 @@ class TutorHomeFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         })

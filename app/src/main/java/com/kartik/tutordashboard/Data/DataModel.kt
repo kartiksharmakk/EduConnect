@@ -83,6 +83,11 @@ object DataModel{
         val image: String= ""
     )
 
+    data class Assignment(
+        val title: String = "",
+        val description: String = "",
+        val url: String = "",
+    )
 
 
 }

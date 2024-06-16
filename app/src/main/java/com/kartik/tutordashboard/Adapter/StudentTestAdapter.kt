@@ -37,7 +37,7 @@ class StudentTestAdapter(val context: Context, val tests: List<DataModel.Test>, 
         }
 
         override fun onClick(p0: View?) {
-            TODO("Not yet implemented")
+           
         }
 
     }

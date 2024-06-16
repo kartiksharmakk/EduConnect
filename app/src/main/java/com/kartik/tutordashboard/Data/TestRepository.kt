@@ -89,7 +89,7 @@ class TestRepository(val database: FirebaseDatabase) {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
             }
 
         })
@@ -116,7 +116,7 @@ class TestRepository(val database: FirebaseDatabase) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
                 liveDataTests.postValue(emptyList())
             }
 
@@ -139,7 +139,7 @@ class TestRepository(val database: FirebaseDatabase) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
                 liveDataTest.postValue(null)
             }
         })
@@ -165,7 +165,7 @@ class TestRepository(val database: FirebaseDatabase) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
                 liveDataTests.postValue(emptyList())
             }
         })
@@ -186,7 +186,7 @@ class TestRepository(val database: FirebaseDatabase) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
             }
 
         })

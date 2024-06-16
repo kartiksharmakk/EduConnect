@@ -73,7 +73,7 @@ class AllotTestToStudentsFragment : Fragment() , AdapterStudentTest.onClickStude
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
             }
 
         })

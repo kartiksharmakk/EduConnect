@@ -57,7 +57,7 @@ class GroupDetailsFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
             }
 
         })
@@ -105,7 +105,7 @@ class GroupDetailsFragment : Fragment() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                       
                     }
 
                 })

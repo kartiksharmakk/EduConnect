@@ -71,7 +71,7 @@ class AllotTestToGroupFragment : Fragment() , AdapterGroupTest.OnClickGroupClick
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               
             }
 
         })

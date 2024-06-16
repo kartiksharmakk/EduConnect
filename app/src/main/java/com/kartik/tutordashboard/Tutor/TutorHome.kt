@@ -96,6 +96,12 @@ class TutorHome : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_assignment -> {
+                    navController.navigate(R.id.nav_assignment)
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
                 else -> {
                     true
                 }
