@@ -58,6 +58,8 @@ class ViewAssignments : Fragment() {
         val view = inflater.inflate(R.layout.fragment_student_view_assignment, container, false)
         val composeView = view.findViewById<ComposeView>(R.id.compose_view)
         fetchAssignments()
+        /// hide bottom nav here
+        (activity as? StudentHome)?.hideBottomNavigation()
         composeView.apply {
             // Dispose of the Composition when the view's LifecycleOwner
             // is destroyed

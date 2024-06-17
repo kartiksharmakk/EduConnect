@@ -51,6 +51,7 @@ android {
 dependencies {
 
     implementation("androidx.media3:media3-exoplayer:1.3.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
     var composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -62,6 +63,7 @@ dependencies {
     implementation ("androidx.compose.material:material")
     implementation ("androidx.compose.runtime:runtime-livedata")
     implementation ("androidx.compose.ui:ui-tooling")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose")
     implementation("androidx.compose.material:material-icons-extended")
     implementation ("androidx.activity:activity-compose")
     implementation("io.coil-kt:coil-compose:2.1.0")
@@ -117,4 +119,6 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.6.1")
 
 
+    implementation ("com.firebaseui:firebase-ui-database:8.0.2")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

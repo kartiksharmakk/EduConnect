@@ -71,6 +71,10 @@ class ProfileFragment : Fragment() {
         val uid = Prefs.getUID(requireContext())
         val qrCodeBitmap = generateQRCode(uid!!)
         getAboutSection()
+        val activity = getActivity();
+        if(isAdded && activity != null) {
+            getDefaultProfileImage()
+        }
         binding.apply {
             val name = Prefs.getUsername(requireContext())
             txtStudentNameProfile.setText(name)
@@ -95,7 +99,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getDefaultProfileImage()
+
     }
 
     override fun onResume() {
@@ -281,35 +285,41 @@ class ProfileFragment : Fragment() {
     private fun getDefaultProfileImage(){
         val email = Prefs.getUSerEmailEncoded(requireContext())
         val emailRef = databaseReference.child(email!!)
-        emailRef.child("image").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val imageUri = dataSnapshot.getValue(String::class.java)
-                imageUri?.let {
-                    val img = FirebaseStorage.getInstance().getReferenceFromUrl(imageUri)
-                    try {
-                        img.downloadUrl.addOnSuccessListener { uri ->
-                            Glide.with(requireContext()).load(uri)
-                                .apply(RequestOptions.circleCropTransform())
-                                .into(binding.imgStudentImageProfile)
-                            stopImageShimmer()
-                        }.addOnFailureListener { exception ->
-                            Log.e(
-                                "StudentProfileFragment",
-                                "Error loading profile image: ${exception.message}"
-                            )
-                        }
-                    }catch (e: Exception){
-                        Log.d("Image Loading exception",e.message.toString())
-                    }
-                } ?: run {
-                    Log.e("StudentProfileFragment","Image URI is null")
-                }
-            }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.e("StudentProfileFragment", "Error fetching image URI from database: ${databaseError.message}")
-            }
-        })
+        emailRef.child("image").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val imageUri = dataSnapshot.getValue(String::class.java)
+                    imageUri?.let {
+                        val img = FirebaseStorage.getInstance().getReferenceFromUrl(imageUri)
+                        try {
+                            img.downloadUrl.addOnSuccessListener { uri ->
+                                Glide.with(requireContext()).load(uri)
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(binding.imgStudentImageProfile)
+                                stopImageShimmer()
+                            }.addOnFailureListener { exception ->
+                                Log.e(
+                                    "StudentProfileFragment",
+                                    "Error loading profile image: ${exception.message}"
+                                )
+                            }
+
+                        } catch (e: Exception) {
+                            Log.d("Image Loading exception", e.message.toString())
+                        }
+                    } ?: run {
+                        Log.e("StudentProfileFragment", "Image URI is null")
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.e(
+                        "StudentProfileFragment",
+                        "Error fetching image URI from database: ${databaseError.message}"
+                    )
+                }
+            })
+
     }
 
     private fun pickProfilePhoto(){
