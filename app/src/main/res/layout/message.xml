@@ -9,11 +9,11 @@
     <TextView
         android:id="@+id/messageTextView"
         android:layout_width="wrap_content"
-        android:maxWidth="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:padding="10dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/rounded_message_gray"
+        android:maxWidth="250dp"
+        android:padding="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toEndOf="@id/messengerImageView"
@@ -39,6 +39,40 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/messageTextView"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/messageTextViewRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_message_gray"
+        android:layout_marginEnd="8dp"
+        android:maxWidth="250dp"
+        android:padding="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/messengerImageViewRight"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="This is a message" />
+
+    <TextView
+        android:id="@+id/messengerTextViewRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintEnd_toEndOf="@id/messageTextViewRight"
+        app:layout_constraintTop_toBottomOf="@id/messageTextViewRight"
+        tools:text="FirstName LastName" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/messengerImageViewRight"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_add_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

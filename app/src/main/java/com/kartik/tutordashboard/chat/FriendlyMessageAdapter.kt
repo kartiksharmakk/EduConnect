@@ -3,6 +3,7 @@ package com.kartik.tutordashboard.chat
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +22,9 @@ import com.kartik.tutordashboard.databinding.MessageBinding
 // See: https://github.com/firebase/FirebaseUI-Android
 class FriendlyMessageAdapter(
     private val options: FirebaseRecyclerOptions<FriendlyMessage>,
-    private val currentUserName: String?
+    private val currentUserName: String?,
+    private val currentEmail: String?
+
 ) :
     FirebaseRecyclerAdapter<FriendlyMessage, ViewHolder>(options) {
 
@@ -53,19 +56,45 @@ class FriendlyMessageAdapter(
     inner class MessageViewHolder(private val binding: MessageBinding) : ViewHolder(binding.root) {
         fun bind(item: FriendlyMessage) {
             // TODO: implement
-            binding.messageTextView.text = item.text
-            setTextColor(item.name, binding.messageTextView)
 
-            binding.messengerTextView.text = if (item.name == null) ANONYMOUS else item.name
-            if (item.photoUrl != null) {
+            if(item.email != currentEmail){
+
+                binding.messageTextViewRight.visibility = View.GONE
+                binding.messengerImageViewRight.visibility = View.GONE
+                binding.messengerTextViewRight.visibility = View.GONE
+
+                binding.messageTextView.text = item.text
+                setTextColor(item.name, binding.messageTextView , item.email)
+
+                binding.messengerTextView.text = if (item.name == null) ANONYMOUS else item.name
+                if (item.photoUrl != null) {
                 loadImageIntoView(binding.messengerImageView, item.photoUrl!!)
-            } else {
+                } else {
                binding.messengerImageView.setImageResource(R.drawable.ic_action_name)
+                }
+
+            }else{
+
+                binding.messageTextView.visibility = View.GONE
+                binding.messengerImageView.visibility = View.GONE
+                binding.messengerTextView.visibility = View.GONE
+
+
+                binding.messageTextViewRight.text = item.text
+                setTextColor(item.name, binding.messageTextViewRight , item.email)
+
+                binding.messengerTextViewRight.text = if (item.name == null) ANONYMOUS else item.name
+                if (item.photoUrl != null) {
+                    loadImageIntoView(binding.messengerImageViewRight, item.photoUrl!!)
+                } else {
+                    binding.messengerImageViewRight.setImageResource(R.drawable.ic_action_name)
+                }
+
             }
         }
 
-        private fun setTextColor(userName: String?, textView: TextView) {
-            if (userName != ANONYMOUS && currentUserName == userName && userName != null) {
+        private fun setTextColor(userName: String?, textView: TextView , email: String?) {
+            if (userName != ANONYMOUS && currentEmail == email && email != null) {
                 textView.setBackgroundResource(R.drawable.rounded_message_blue)
                 textView.setTextColor(Color.WHITE)
             } else {

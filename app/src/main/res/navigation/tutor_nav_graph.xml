@@ -74,4 +74,10 @@
         android:name="com.kartik.tutordashboard.Tutor.UploadAssignment"
         tools:layout="@layout/fragment_tutor_upload_assignment"
         android:label="upload Assignments" />
+
+    <activity
+        android:id="@+id/nav_chat"
+        android:name="com.kartik.tutordashboard.chat.ChatActivity"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/activity_chat"/>
 </navigation>

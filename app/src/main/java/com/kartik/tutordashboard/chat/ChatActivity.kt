@@ -42,6 +42,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var db: FirebaseDatabase
     private lateinit var adapter: FriendlyMessageAdapter
     lateinit var databaseReferenceUserDetails: DatabaseReference
+    var email:String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +66,14 @@ class ChatActivity : AppCompatActivity() {
         val messagesRef = db.reference.child(MESSAGES_CHILD)
         getUserName()
         getPhotoUrl()
+        email = Prefs.getUSerEmailEncoded(this)
+
         // The FirebaseRecyclerAdapter class and options come from the FirebaseUI library
         // See: https://github.com/firebase/FirebaseUI-Android
         val options = FirebaseRecyclerOptions.Builder<FriendlyMessage>()
                 .setQuery(messagesRef, FriendlyMessage::class.java)
                 .build()
-        adapter = FriendlyMessageAdapter(options, finalName)
+        adapter = FriendlyMessageAdapter(options, finalName, email)
         binding.progressBar.visibility = ProgressBar.INVISIBLE
         manager = LinearLayoutManager(this)
         manager.stackFromEnd = true
@@ -94,7 +97,8 @@ class ChatActivity : AppCompatActivity() {
                     binding.messageEditText.text.toString(),
                     finalName,
                     finalUrl,
-                    null /* no image */
+                    null /* no image */,
+                    email
             )
             db.reference.child(MESSAGES_CHILD).push().setValue(friendlyMessage)
             binding.messageEditText.setText("")
@@ -103,7 +107,7 @@ class ChatActivity : AppCompatActivity() {
 
         // When the image button is clicked, launch the image picker
         binding.addMessageImageView.setOnClickListener {
-           // openDocument.launch(arrayOf("image/*"))
+           openDocument.launch(arrayOf("image/*"))
         }
     }
 
@@ -126,8 +130,16 @@ class ChatActivity : AppCompatActivity() {
     private fun onImageSelected(uri: Uri) {
         // TODO: implement
         Log.d(TAG, "Uri: $uri")
+        lateinit var tempMessage:FriendlyMessage
         val user = auth.currentUser
-        val tempMessage = FriendlyMessage(null, finalName, finalUrl, LOADING_IMAGE_URL)
+        if(uri != null) {
+            tempMessage = FriendlyMessage(null, finalName, finalUrl, uri.toString(), null)
+        }else{
+            tempMessage = FriendlyMessage(null, finalName, finalUrl, LOADING_IMAGE_URL, null)
+
+        }
+
+
         db.reference
                 .child(MESSAGES_CHILD)
                 .push()
@@ -164,7 +176,7 @@ class ChatActivity : AppCompatActivity() {
                     taskSnapshot.metadata!!.reference!!.downloadUrl
                             .addOnSuccessListener { uri ->
                                 val friendlyMessage =
-                                        FriendlyMessage(null, finalName, finalUrl, uri.toString())
+                                        FriendlyMessage(null, finalName, finalUrl, uri.toString(),email)
                                 db.reference
                                         .child(MESSAGES_CHILD)
                                         .child(key!!)

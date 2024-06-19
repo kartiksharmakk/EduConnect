@@ -148,6 +148,11 @@
         android:label="Assignments"
         tools:layout="@layout/fragment_student_view_assignment"/>
 
+    <activity
+        android:id="@+id/nav_chat"
+        android:name="com.kartik.tutordashboard.chat.ChatActivity"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/activity_chat"/>
 
 
 </navigation>
