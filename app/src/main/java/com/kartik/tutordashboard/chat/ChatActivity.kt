@@ -1,7 +1,11 @@
 package com.kartik.tutordashboard.chat
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +20,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
 import com.kartik.tutordashboard.Data.Prefs
 import com.kartik.tutordashboard.databinding.ActivityChatBinding
+import java.io.ByteArrayOutputStream
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
@@ -28,11 +31,11 @@ class ChatActivity : AppCompatActivity() {
     var finalName: String = ""
 
 
-    private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
-        if (uri != null) {
-            onImageSelected(uri)
-        }
-    }
+//    private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
+//        if (uri != null) {
+//            pickProfilePhoto(uri)
+//        }
+//    }
 
 
     // TODO: implement Firebase instance variables
@@ -107,7 +110,8 @@ class ChatActivity : AppCompatActivity() {
 
         // When the image button is clicked, launch the image picker
         binding.addMessageImageView.setOnClickListener {
-           openDocument.launch(arrayOf("image/*"))
+           //openDocument.launch(arrayOf("image/*"))
+            pickProfilePhoto()
         }
     }
 
@@ -125,15 +129,60 @@ class ChatActivity : AppCompatActivity() {
         adapter.startListening()
     }
 
+    private fun pickProfilePhoto(){
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.type ="image/*"
+        startActivityForResult(intent, ChatActivity.PICK_IMAGE_REQUEST_CODE)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("ProfileFragment", "onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == ChatActivity.PICK_IMAGE_REQUEST_CODE) {
+                Log.d("StudentProfileFragment", "Picked image successfully")
+                data?.data?.let { uri ->
+                    uploadChatPhoto(uri)
+                }
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Log.d("StudentProfileFragment", "Activity result cancelled")
+        }
+    }
 
-    private fun onImageSelected(uri: Uri) {
+    private fun uploadChatPhoto(imageUri: Uri){
+        try{
+            val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+            val data = outputStream.toByteArray()
+            val email = Prefs.getUSerEmailEncoded(this)
+            val fileName ="${getRandomString(10)}.jpg"//pending
+            val profilePhotoRef = FirebaseStorage.getInstance().reference.child("message_photos/$fileName")
+            val uploadTask = profilePhotoRef.putBytes(data)
+            uploadTask.addOnSuccessListener {taskSnapshot->
+                profilePhotoRef.downloadUrl.addOnSuccessListener { uri->
+                    //SharedPrefs
+                    updateImageUriInDatabaseChat(uri.toString())
+
+                }
+            }.addOnFailureListener{e ->
+                Log.e("ProfileFragment", "Error uploading profile photo: ${e.message}")
+            }
+        }catch (e: Exception){
+            Log.e("ProfileFragment", "Error uploading profile photo: ${e.message}")
+        }
+    }
+
+    private fun updateImageUriInDatabaseChat(imageUri: String){
+
         // TODO: implement
-        Log.d(TAG, "Uri: $uri")
+        Log.d(TAG, "Uri: $imageUri")
         lateinit var tempMessage:FriendlyMessage
         val user = auth.currentUser
-        if(uri != null) {
-            tempMessage = FriendlyMessage(null, finalName, finalUrl, uri.toString(), null)
+        if(imageUri != null) {
+            tempMessage = FriendlyMessage(null, finalName, finalUrl, imageUri.toString(), null)
         }else{
             tempMessage = FriendlyMessage(null, finalName, finalUrl, LOADING_IMAGE_URL, null)
 
@@ -141,57 +190,27 @@ class ChatActivity : AppCompatActivity() {
 
 
         db.reference
-                .child(MESSAGES_CHILD)
-                .push()
-                .setValue(
-                        tempMessage,
-                        DatabaseReference.CompletionListener { databaseError, databaseReference ->
-                            if (databaseError != null) {
-                                Log.w(
-                                        TAG, "Unable to write message to database.",
-                                        databaseError.toException()
-                                )
-                                return@CompletionListener
-                            }
-
-                            // Build a StorageReference and then upload the file
-                            val key = databaseReference.key
-                            val storageReference = Firebase.storage
-                                    .getReference(user!!.uid)
-                                    .child(key!!)
-                                    .child(uri.lastPathSegment!!)
-                            putImageInStorage(storageReference, uri, key)
-                        })
+            .child(MESSAGES_CHILD)
+            .push()
+            .setValue(
+                tempMessage,
+                DatabaseReference.CompletionListener { databaseError, databaseReference ->
+                    if (databaseError != null) {
+                        Log.w(
+                            TAG, "Unable to write message to database.",
+                            databaseError.toException()
+                        )
+                        return@CompletionListener
+                    }
+                })
     }
 
-    private fun putImageInStorage(storageReference: StorageReference, uri: Uri, key: String?) {
-        // Upload the image to Cloud Storage
-        // TODO: implement
-        // First upload the image to Cloud Storage
-        storageReference.putFile(uri)
-                .addOnSuccessListener(
-                        this
-                ) { taskSnapshot -> // After the image loads, get a public downloadUrl for the image
-                    // and add it to the message.
-                    taskSnapshot.metadata!!.reference!!.downloadUrl
-                            .addOnSuccessListener { uri ->
-                                val friendlyMessage =
-                                        FriendlyMessage(null, finalName, finalUrl, uri.toString(),email)
-                                db.reference
-                                        .child(MESSAGES_CHILD)
-                                        .child(key!!)
-                                        .setValue(friendlyMessage)
-                            }
-                }
-                .addOnFailureListener(this) { e ->
-                    Log.w(
-                            TAG,
-                            "Image upload task was unsuccessful.",
-                            e
-                    )
-                }
+    private fun getRandomString(length: Int): String {
+        val chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return (1..length)
+            .map { chars.random() }
+            .joinToString("")
     }
-
     private fun getPhotoUrl() {
         val email = Prefs.getUSerEmailEncoded(this)
         val dbRef = databaseReferenceUserDetails.child(email!!).child("image")
@@ -240,5 +259,6 @@ class ChatActivity : AppCompatActivity() {
         const val MESSAGES_CHILD = "messages"
         const val ANONYMOUS = "anonymous"
         private const val LOADING_IMAGE_URL = "https://www.google.com/images/spin-32.gif"
+        private const val PICK_IMAGE_REQUEST_CODE = 4002
     }
 }

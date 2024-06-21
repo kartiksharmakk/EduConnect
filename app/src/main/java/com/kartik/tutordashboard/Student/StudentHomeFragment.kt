@@ -1,6 +1,5 @@
 package com.kartik.tutordashboard.Student
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +19,6 @@ import com.kartik.tutordashboard.Adapter.StudentTestAdapter
 import com.kartik.tutordashboard.Data.DataModel
 import com.kartik.tutordashboard.Data.Prefs
 import com.kartik.tutordashboard.R
-import com.kartik.tutordashboard.chat.ChatActivity
 import com.kartik.tutordashboard.databinding.FragmentStudentHomeBinding
 
 class StudentHomeFragment : Fragment() {
@@ -76,10 +74,6 @@ class StudentHomeFragment : Fragment() {
             findNavController().navigate(R.id.announcementFragmentStudent)
         }
 
-        binding.imageView4.setOnClickListener {
-            val intent =  Intent(requireActivity(), ChatActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun fetchGroups(){
