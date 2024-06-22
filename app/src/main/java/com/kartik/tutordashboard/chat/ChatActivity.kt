@@ -20,11 +20,12 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.kartik.tutordashboard.Adapter.QuestionAdapter
 import com.kartik.tutordashboard.Data.Prefs
 import com.kartik.tutordashboard.databinding.ActivityChatBinding
 import java.io.ByteArrayOutputStream
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity() , FriendlyMessageAdapter.onclickListner {
     private lateinit var binding: ActivityChatBinding
     private lateinit var manager: LinearLayoutManager
     var finalUrl: String = ""
@@ -76,7 +77,7 @@ class ChatActivity : AppCompatActivity() {
         val options = FirebaseRecyclerOptions.Builder<FriendlyMessage>()
                 .setQuery(messagesRef, FriendlyMessage::class.java)
                 .build()
-        adapter = FriendlyMessageAdapter(options, finalName, email)
+        adapter = FriendlyMessageAdapter(options, finalName, email, this)
         binding.progressBar.visibility = ProgressBar.INVISIBLE
         manager = LinearLayoutManager(this)
         manager.stackFromEnd = true
@@ -85,9 +86,11 @@ class ChatActivity : AppCompatActivity() {
 
         // Scroll down when a new message arrives
         // See MyScrollToBottomObserver for details
+
         adapter.registerAdapterDataObserver(
                 MyScrollToBottomObserver(binding.messageRecyclerView, adapter, manager)
         )
+
 
         // Disable the send button when there's no text in the input field
         // See MyButtonObserver for details
@@ -115,10 +118,18 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
+        binding.messageRecyclerView.recycledViewPool.clear()
+        adapter.startListening()
     }
 
+
+    override fun onDestroy() {
+        adapter.stopListening()
+        super.onDestroy()
+    }
+    /*
     public override fun onPause() {
         adapter.stopListening()
         super.onPause()
@@ -128,6 +139,8 @@ class ChatActivity : AppCompatActivity() {
         super.onResume()
         adapter.startListening()
     }
+
+     */
 
     private fun pickProfilePhoto(){
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -182,9 +195,9 @@ class ChatActivity : AppCompatActivity() {
         lateinit var tempMessage:FriendlyMessage
         val user = auth.currentUser
         if(imageUri != null) {
-            tempMessage = FriendlyMessage(null, finalName, finalUrl, imageUri.toString(), null)
+            tempMessage = FriendlyMessage(null, finalName, finalUrl, imageUri.toString(), email)
         }else{
-            tempMessage = FriendlyMessage(null, finalName, finalUrl, LOADING_IMAGE_URL, null)
+            tempMessage = FriendlyMessage(null, finalName, finalUrl, LOADING_IMAGE_URL, email)
 
         }
 
@@ -260,5 +273,13 @@ class ChatActivity : AppCompatActivity() {
         const val ANONYMOUS = "anonymous"
         private const val LOADING_IMAGE_URL = "https://www.google.com/images/spin-32.gif"
         private const val PICK_IMAGE_REQUEST_CODE = 4002
+    }
+
+    override fun onClickImage(imageUri: String?) {
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            setDataAndType(Uri.parse(imageUri), "image/*")
+        }
+        startActivity(intent)
     }
 }

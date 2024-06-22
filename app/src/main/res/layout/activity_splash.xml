@@ -27,11 +27,11 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Uplift"
             android:fontFamily="sans-serif-black"
-            android:textStyle="bold"
+            android:gravity="center"
+            android:text="EduConnect"
             android:textColor="@color/text_color"
-            android:textSize="36dp" />
+            android:textSize="36dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
