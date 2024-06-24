@@ -125,9 +125,9 @@ class ChatActivity : AppCompatActivity() , FriendlyMessageAdapter.onclickListner
     }
 
 
-    override fun onStop() {
+    override fun onDestroy() {
         adapter.stopListening()
-        super.onStop()
+        super.onDestroy()
     }
     /*
     public override fun onPause() {
