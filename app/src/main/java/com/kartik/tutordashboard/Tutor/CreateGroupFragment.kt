@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -16,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -43,8 +45,8 @@ class CreateGroupFragment : Fragment() {
     lateinit var binding: FragmentCreateGroupBinding
     lateinit var firebaseDatabase: FirebaseDatabase
     lateinit var databaseReference: DatabaseReference
-    lateinit var displayImageUrl: Uri
-    lateinit var coverImageUrl: Uri
+     var displayImageUrl: Uri? = null
+     var coverImageUrl: Uri? = null
     private var currentImageType: ImageType? = null
     private val viewModel: TutorViewModel by activityViewModels<TutorViewModel>()
     lateinit var selectedStudents: List<String>
@@ -79,17 +81,19 @@ class CreateGroupFragment : Fragment() {
         Observer()
     }
 
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     private fun checkPermission(imageType: ImageType){
-        if(ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) != PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
             requestStoragePermissions(imageType)
         }else{
             pickImage(imageType)
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     private fun requestStoragePermissions(imageType: ImageType){
         requestPermissions(
-            arrayOf(android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED),
+            arrayOf(android.Manifest.permission.READ_MEDIA_IMAGES),
             when(imageType){
                 ImageType.COVER -> COVER_STORAGE_PERMISSION_REQUEST_CODE
                 ImageType.DISPLAY -> DISPLAY_STORAGE_PERMISSION_REQUEST_CODE
@@ -278,8 +282,14 @@ class CreateGroupFragment : Fragment() {
             val group = DataModel.Group(groupId,name, description,subject,tutor_uid!!,"","", students)
             databaseReference.child(groupId).setValue(group).addOnSuccessListener {
                 Log.d("CreateGroupFragment", "Group created successfully")
-                uploadImageToFirebaseStorage(groupId,displayImageUrl, ImageType.DISPLAY)
-                uploadImageToFirebaseStorage(groupId,coverImageUrl, ImageType.COVER)
+                displayImageUrl?.let { it1 ->
+                    uploadImageToFirebaseStorage(groupId,
+                        it1, ImageType.DISPLAY)
+                }
+                coverImageUrl?.let { it1 ->
+                    uploadImageToFirebaseStorage(groupId,
+                        it1, ImageType.COVER)
+                }
                 getToastShort(requireContext(),"Group created")
                 val tokens = retrieveGroupMembersDeviceTokens(students)
                 sendNotificationToAddedStudents(name,tokens)
