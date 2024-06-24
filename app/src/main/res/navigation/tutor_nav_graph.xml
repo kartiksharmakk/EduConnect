@@ -31,22 +31,22 @@
     <fragment
         android:id="@+id/addStudents"
         android:name="com.kartik.tutordashboard.Tutor.StudentListFragment"
-        android:label="SelectStudentsFragment"
+        android:label="Select Students"
         tools:layout="@layout/fragment_student_list"/>
     <fragment
         android:id="@+id/createTest"
         android:name="com.kartik.tutordashboard.Tutor.CreateTestFragment"
-        android:label="CreateTestFragment"
+        android:label="Create Test"
         tools:layout="@layout/fragment_create_test"/>
     <fragment
         android:id="@+id/allotTest"
         android:name="com.kartik.tutordashboard.Tutor.AllotTestFragment"
-        android:label="AllotTest"
+        android:label="Allot Test"
         tools:layout="@layout/fragment_allot_test"/>
     <fragment
         android:id="@+id/viewGroupDetailsFragment"
         android:name="com.kartik.tutordashboard.Student.GroupDetailsFragment"
-        android:label="GroupDetails"
+        android:label="Group Details"
         tools:layout="@layout/fragment_group_details">
         <argument
             android:name="groupId"
@@ -56,7 +56,7 @@
         android:id="@+id/qrCodeScannerFragment"
         android:name="com.kartik.tutordashboard.Tutor.QRCodeScannerFragment"
         tools:layout="@layout/fragment_q_r_code_scanner"
-        android:label="QRCodeScanner"/>
+        android:label="QRCode Scanner"/>
     <action
         android:id="@+id/actionQRCodeScannerToTutorProfile"
         app:destination="@id/tutor_profile"/>
@@ -68,12 +68,12 @@
         android:id="@+id/announcementFragment"
         android:name="com.kartik.tutordashboard.Tutor.AnnouncementFragment"
         tools:layout="@layout/fragment_announcement_teacher"
-        android:label="NotificationFragment" />
+        android:label="Make Announcements" />
     <fragment
         android:id="@+id/nav_assignment"
         android:name="com.kartik.tutordashboard.Tutor.UploadAssignment"
         tools:layout="@layout/fragment_tutor_upload_assignment"
-        android:label="upload Assignments" />
+        android:label="Upload Assignments" />
 
     <activity
         android:id="@+id/nav_chat"

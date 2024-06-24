@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/attemptTestFragment"
         android:name="com.kartik.tutordashboard.Student.AttemptTestFragment"
-        android:label="AttemptTest"
+        android:label="Attempt Test"
         tools:layout="@layout/fragment_attempt_test">
         <argument
             android:name="testId"
@@ -44,19 +44,19 @@
     <fragment
         android:id="@+id/attemptedTestsList"
         android:name="com.kartik.tutordashboard.Student.AttemptedTestsFragment"
-        android:label="AttemptedTestsFragment"
+        android:label="Attempted Test List"
         tools:layout="@layout/fragment_attempted_tests"/>
 
 
     <fragment
         android:id="@+id/attemptedTestsFragment"
         android:name="com.kartik.tutordashboard.Student.AttemptedTestsFragment"
-        android:label="AttemptedTestsFragment"
+        android:label="Attempted Tests"
         tools:layout="@layout/fragment_attempted_tests"/>
     <fragment
         android:id="@+id/viewMarksFragment"
         android:name="com.kartik.tutordashboard.Student.ViewMarksFragment"
-        android:label="ViewMarksFragment"
+        android:label="View Marks"
         tools:layout="@layout/fragment_view_marks">
         <argument
             android:name="testId"
@@ -65,7 +65,7 @@
     <fragment
         android:id="@+id/groupDetailsFragment"
         android:name="com.kartik.tutordashboard.Student.GroupDetailsFragment"
-        android:label="GroupDetailsFragment"
+        android:label="Group Details"
         tools:layout="@layout/fragment_group_details">
         <argument
             android:name="groupId"
@@ -91,7 +91,7 @@
         android:id="@+id/announcementFragmentStudent"
         android:name="com.kartik.tutordashboard.Student.AnnouncementFragmentStudent"
         tools:layout="@layout/fragment_announcement_student"
-        android:label="NotificationFragment" />
+        android:label="Announcements" />
 
     <fragment
         android:id="@+id/nav_gpa_calculator"

@@ -136,7 +136,7 @@ class VerifyPhoneFragment : Fragment() {
         val user = DataModel.UserCredentials(uid,name,email1, countryCode, phoneWithCountryCode, image,false )
         val tutor = DataModel.TeacherModel(uid, name, email1,"0", "0" )
         databaseReference.child(email1).setValue(user)
-        databaseReference.child(email1).child("about").setValue("Hey there, I am using uplift.")
+        databaseReference.child(email1).child("about").setValue("Hey there, I am using EduConnect.")
         tutorDatabaseReference.child(email1).setValue(tutor)
     }
 

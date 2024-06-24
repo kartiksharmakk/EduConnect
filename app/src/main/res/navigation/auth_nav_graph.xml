@@ -7,27 +7,27 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.kartik.tutordashboard.Authentication.SignIn.SigninFragment"
-        android:label="SignInFragment"
+        android:label="Sign In"
         tools:layout="@layout/fragment_signin"/>
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.kartik.tutordashboard.Authentication.SignUp.SignupFragment"
-        android:label="SignUpFragment"
+        android:label="Sign Up"
         tools:layout="@layout/fragment_signup"/>
     <fragment
         android:id="@+id/verifyPhoneFragment"
         android:name="com.kartik.tutordashboard.Authentication.SignUp.VerifyPhoneFragment"
-        android:label="VerifyPhoneFragment"
+        android:label="Verify Phone"
         tools:layout="@layout/fragment_verify_phone"/>
     <fragment
         android:id="@+id/resetFragment"
         android:name="com.kartik.tutordashboard.Authentication.SignIn.ResestFragment"
-        android:label="ResetFragment"
+        android:label="Reset"
         tools:layout="@layout/fragment_resest"/>
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.kartik.tutordashboard.Authentication.SignIn.ForgotFragment"
-        android:label="ForgotPasswordFragment"
+        android:label="Forgot Password"
         tools:layout="@layout/fragment_forgot"/>
     <action
         android:id="@+id/action_verifyPhoneFragment_to_signInFragment"
