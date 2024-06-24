@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kartik.tutordashboard.Data.Course
 import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.Student.StudentHome
 import com.kartik.tutordashboard.TutorDashboardApplication
 import com.kartik.tutordashboard.databinding.FragmentGpaCalculatorCourseDetailBinding
 
@@ -86,6 +87,8 @@ class CourseDetailFragment : Fragment() {
 
         val id = navigationArgs.courseId
 
+        /// hide bottom nav here
+        (activity as? StudentHome)?.hideBottomNavigation()
         /*
         * Retrieve the course details using the id.
         * Attach an observer on  the data (instead of polling for changes) and only update

@@ -82,6 +82,9 @@ class AnnouncementFragment : Fragment() {
         backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        /// hide bottom nav here
+        (activity as? TutorHome)?.hideBottomNavigation()
     }
 
     @Composable

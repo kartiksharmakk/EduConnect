@@ -53,6 +53,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.Student.StudentHome
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 
@@ -77,6 +78,13 @@ class UploadAssignment : Fragment() {
         }
         return view
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /// hide bottom nav here
+        (activity as? TutorHome)?.hideBottomNavigation()
     }
 
 
@@ -118,7 +126,7 @@ class UploadAssignment : Fragment() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Upload Assignment", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Upload Assignment", fontSize = 24.sp, fontWeight = FontWeight.Bold , color = Color.White)
 
             Spacer(modifier = Modifier.height(20.dp))
 

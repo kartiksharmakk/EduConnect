@@ -42,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.kartik.tutordashboard.Data.DataModel
 import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.Tutor.TutorHome
 
 class AnnouncementFragmentStudent: Fragment() {
 
@@ -71,7 +72,8 @@ class AnnouncementFragmentStudent: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+/// hide bottom nav here
+        (activity as? StudentHome)?.hideBottomNavigation()
     }
 
     @Composable
@@ -116,13 +118,20 @@ class AnnouncementFragmentStudent: Fragment() {
                     .background(Color.White)
                     .padding(16.dp)
             ) {
-                if (!image.isNullOrEmpty()) {
+                if (image != "null") {
                     Image(
                         painter = rememberAsyncImagePainter(image),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp)
+                            .clickable {
+                                val intent = Intent().apply {
+                                    action = Intent.ACTION_VIEW
+                                    setDataAndType(Uri.parse(image), "image/*")
+                                }
+                                startActivity(intent)
+                            }
                         ,
                         contentScale = ContentScale.Fit
                     )

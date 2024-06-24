@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kartik.tutordashboard.Data.Course
 import com.kartik.tutordashboard.R
+import com.kartik.tutordashboard.Student.StudentHome
 import com.kartik.tutordashboard.TutorDashboardApplication
 import com.kartik.tutordashboard.databinding.FragmentGpaCalculatorAddCourseBinding
 
@@ -101,6 +102,9 @@ class AddCourseFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /// hide bottom nav here
+        (activity as? StudentHome)?.hideBottomNavigation()
 
         val gradesAdapter = ArrayAdapter(requireContext(), R.layout.gpa_calculator_add_list_item, CREDITS)
         (binding.courseCredit.editText as? AutoCompleteTextView)?.setAdapter(gradesAdapter)
