@@ -89,5 +89,12 @@ object DataModel{
         val url: String = "",
     )
 
+    data class Notes(
+        val title: String = "",
+        val description: String = "",
+        val url: String = "",
+        val url_link: String = "",
+    )
+
 
 }

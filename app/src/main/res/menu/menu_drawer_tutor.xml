@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_notes"
             android:icon="@drawable/ic_menu_note_add"
-            android:title="@string/menu_notes" />
+            android:title="Upload Note" />
 
         <item
             android:id="@+id/nav_assignment"

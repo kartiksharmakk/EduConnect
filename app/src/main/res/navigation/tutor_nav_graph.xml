@@ -75,6 +75,12 @@
         tools:layout="@layout/fragment_tutor_upload_assignment"
         android:label="Upload Assignments" />
 
+    <fragment
+        android:id="@+id/nav_notes"
+        android:name="com.kartik.tutordashboard.Tutor.UploadNotesTutorFragment"
+        tools:layout="@layout/fragment_notes_teacher"
+        android:label="Upload Notes" />
+
     <activity
         android:id="@+id/nav_chat"
         android:name="com.kartik.tutordashboard.chat.ChatActivity"
