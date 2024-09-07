@@ -45,3 +45,40 @@ across devices is instantaneous, while cloud storage handles media and file uplo
 
 ## Screens
 
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/signup.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/signin.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/homeScreen_Student.jpg" width="100%" height="100%">
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/homeScreen_Teacher.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/gpaCalculator.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/assignment.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/note.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/profile_qrcode.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/announcements.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/chat.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/test_teacher.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/test_student.jpg" width="100%" height="100%"/>
+
+
+<img src="https://raw.githubusercontent.com/kartiksharmakk/EduConnect/main/screenshot/groups.jpg" width="100%" height="100%"/>
